@@ -1,0 +1,36 @@
+# Copy to mapping.yaml and adjust columns / field ids from your Pyrus form.
+sheet:
+  name: "Data"
+  # 1-based row number containing headers (data starts on the next row)
+  header_row: 1
+  # Last row to read (inclusive). Increase for large tables (e.g. up to 1000 new rows per run).
+  read_to_row: 1002
+
+state:
+  task_id_column: "I"
+  status_column: "J"
+  error_column: "K"
+  processed_at_column: "L"
+
+field_mappings:
+  - column: "A"
+    id: 1
+    type: text
+  - column: "B"
+    code: "ClientName"
+    type: text
+  - column: "C"
+    id: 5
+    type: date
+
+# Optional task-level fields (see Pyrus POST /tasks)
+task_options:
+  # Placeholders {A}, {B}, … are replaced with cell values from that column
+  subject_template: "Новая заявка {A}"
+  due_date_column: "D"
+  # Comma-separated emails in the sheet cell
+  participants_column: "E"
+
+logging:
+  # If set, append one row per event to this sheet (columns: time, sheet row, level, message)
+  log_sheet_name: "IntegrationLog"

@@ -1,36 +1,34 @@
-# Copy to mapping.yaml and adjust columns / field ids from your Pyrus form.
+# Маппинг «Платежи г. Ульяновск» → Pyrus. N/O (файлы) не маппим.
+
 sheet:
-  name: "Data"
-  # 1-based row number containing headers (data starts on the next row)
+  name: "Ответы на форму"
   header_row: 1
-  # Last row to read (inclusive). Increase for large tables (e.g. up to 1000 new rows per run).
   read_to_row: 1002
 
 state:
-  task_id_column: "I"
-  status_column: "J"
-  error_column: "K"
-  processed_at_column: "L"
+  task_id_column: "R"
+  status_column: "S"
+  error_column: "T"
+  processed_at_column: "U"
 
 field_mappings:
-  - column: "A"
-    id: 1
-    type: text
-  - column: "B"
-    code: "ClientName"
-    type: text
-  - column: "C"
-    id: 5
-    type: date
+  - { column: "C", id: 32, type: text }
+  - { column: "D", id: 33, type: text }
+  - { column: "E", id: 29, type: text }
+  - { column: "F", id: 6, type: date }
+  - { column: "G", id: 7, type: text }
+  - { column: "H", id: 8, type: number }
+  - { column: "I", id: 34, type: text }
+  - { column: "J", id: 10, type: number }
+  - { column: "K", id: 11, type: text }
+  - { column: "L", id: 13, type: text }
+  - { column: "M", id: 31, type: text }
+  - { column: "P", id: 35, type: text }
+  - { column: "Q", id: 22, type: text }
 
-# Optional task-level fields (see Pyrus POST /tasks)
 task_options:
-  # Placeholders {A}, {B}, … are replaced with cell values from that column
-  subject_template: "Новая заявка {A}"
-  due_date_column: "D"
-  # Comma-separated emails in the sheet cell
-  participants_column: "E"
+  subject_template: "Согласование платежей г.Ульяновск: {K} | №{G} | {F}"
+  participants_column: "B"
 
 logging:
-  # If set, append one row per event to this sheet (columns: time, sheet row, level, message)
-  log_sheet_name: "IntegrationLog"
+  log_sheet_name: "Лог Pyrus"

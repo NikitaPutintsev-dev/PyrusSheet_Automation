@@ -41,7 +41,13 @@ def coerce_value(raw: str, field_type: str) -> Any:
     if t in ("text", "string", "email", "phone"):
         return raw
     if t in ("number", "money", "integer"):
-        cleaned = raw.replace(" ", "").replace(",", ".")
+        cleaned = (
+            raw.replace("\u00a0", "")
+            .replace("\u202f", "")
+            .replace("\u2009", "")
+            .replace(" ", "")
+            .replace(",", ".")
+        )
         if "." in cleaned:
             return float(cleaned)
         return int(cleaned)

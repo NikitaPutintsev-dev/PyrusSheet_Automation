@@ -24,6 +24,9 @@ def test_coerce_number_and_date() -> None:
     assert coerce_value("10", "number") == 10
     assert coerce_value("3.5", "number") == 3.5
     assert coerce_value("1 000,5", "money") == 1000.5
+    # Google Sheets locale: NBSP / narrow NBSP as thousands separator
+    assert coerce_value("1\u00a0223.00", "money") == 1223.0
+    assert coerce_value("12\u202f040,5", "number") == 12040.5
     assert coerce_value("2025-12-01", "date") == "2025-12-01"
     assert coerce_value("31.03.2026", "date") == "2026-03-31"
 
